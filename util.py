@@ -1,3 +1,6 @@
+import chess
+
+
 def generateFen(K, Q, k):
     board_pos = [["." for _ in range(8)] for _ in range(8)]
     board_pos[K // 8][K % 8] = "K"
@@ -80,3 +83,10 @@ def checkMate(stockfish):
 def checkStalemate(stockfish):
     # TODO: Implement method
     pass
+
+
+def printBoard(stockfish, chessBoard, pref):
+    if pref.lower() == "stockfish":
+        print(stockfish.get_board_visual())
+    else:
+        print(chessBoard)

@@ -8,6 +8,8 @@ import util
 
 load_dotenv()
 sfPath = os.environ.get("SF_PATH", "stockfish\\stockfish-windows-x86-64-avx2.exe")
+printPref = os.environ.get("PRINT_PREF", "chess")
+
 stockfish = Stockfish(sfPath)
 
 # Initialize Board
@@ -23,7 +25,7 @@ os.system("cls" if os.name == "nt" else "clear")
 print(stockfish.get_best_move())
 print(stockfish.get_evaluation())
 print(fen)
-print(stockfish.get_board_visual())
+util.printBoard(stockfish, board, printPref)
 
 # Play the game
 while not util.checkMate(stockfish):
@@ -40,6 +42,6 @@ while not util.checkMate(stockfish):
             " WINS!",
         )
     print(stockfish.get_fen_position())
-    print(stockfish.get_board_visual())
+    util.printBoard(stockfish, board, printPref)
 
 print("GAME OVER")
