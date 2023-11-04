@@ -32,17 +32,30 @@ def inKingRange(K, k):
     return False
 
 
-def inQueenRange(Q, k):
-    # TODO: Better Checks
+def inQueenRange(Q, k, K):
+    # TODO: King Queen vs king check is done in all completeness and soundness. If generalisation for more positions required,
+    # then send matrix representation as third parameter, and create list of in-attack-range positions generator for each piece and check if required target is in the range
     if Q // 8 == k // 8 or Q % 8 == k % 8:
-        return True
+        if Q // 8 == k // 8 and Q // 8 == K // 8:
+            if(K % 8 > min(Q % 8 , k % 8) and K % 8 < max( Q % 8 , k % 8)): return False
+            else: return True
+        elif Q % 8 == k % 8 and Q % 8 == K % 8:
+            if(K // 8 > min(Q // 8 , k // 8) and K // 8 < max(Q // 8 , k // 8)): return False
+            else: return True
+        else: return True
     if Q // 8 - Q % 8 == k // 8 - k % 8 or Q // 8 + Q % 8 == k // 8 + k % 8:
-        return True
+        if Q // 8 - Q % 8 == k // 8 - k % 8 and Q // 8 - Q % 8 == K // 8 - K % 8:
+            if(K % 8 > min(Q % 8 , k % 8) and K % 8 < max( Q % 8 , k % 8)): return False
+            else: return True
+        if Q // 8 + Q % 8 == k // 8 + k % 8 and Q // 8 + Q % 8 == K // 8 + K % 8:
+            if(K % 8 > min(Q % 8 , k % 8) and K % 8 < max( Q % 8 , k % 8)): return False
+            else: return True
+        else: return True
     return False
 
 
 def fenCheck(K, Q, k):
-    if inKingRange(K, k) or inQueenRange(Q, k):
+    if inKingRange(K, k) or inQueenRange(Q, k, K):
         return False
     return True
 
@@ -73,16 +86,16 @@ def whoPlayedLast(fen):
     return "WHITE"
 
 
-def checkMate(stockfish):
-    evaluation = stockfish.get_evaluation()
-    if evaluation["type"] == "mate" and evaluation["value"] == 0:
+def checkMate(fen):
+    if(chess.Board(fen).is_checkmate()):
         return True
     return False
 
 
-def checkStalemate(stockfish):
-    # TODO: Implement method
-    pass
+def checkStalemate(fen):
+    if(chess.Board(fen).is_stalemate()):
+        return True
+    return False
 
 
 def printBoard(stockfish, chessBoard, pref):
