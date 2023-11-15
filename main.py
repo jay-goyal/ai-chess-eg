@@ -32,7 +32,7 @@ while not util.checkMate(stockfish.get_fen_position()):
     print("Press any key for next position")
     input()
     os.system("cls" if os.name == "nt" else "clear")
-    evaluation = stockfish.get_evaluation()
+    
     stockfish.make_moves_from_current_position([stockfish.get_best_move()])
     board = chess.Board(stockfish.get_fen_position())
     if util.checkMate(stockfish.get_fen_position()):
