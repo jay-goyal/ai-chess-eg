@@ -1,4 +1,6 @@
 .*
+!.gitignore
+*.py
+temp*
+__pycache__
 stockfish
-.gitignore
-__pycache__/*
